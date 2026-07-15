@@ -1,0 +1,15 @@
+# 本地配置(含你自己的私有标的,不要提交)
+config.json
+
+# 脚本产出的数据、快照与去重缓存(每个用户的实例都不同,不建议提交到仓库历史)
+demo_output/
+watchboard-data/
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

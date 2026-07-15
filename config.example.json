@@ -1,0 +1,54 @@
+{
+  "_readme": "复制本文件为 config.json,放在 scripts/ 同目录,或设环境变量 WATCHBOARD_CONFIG 指向你自己保存的 json 路径。找不到 config.json 时,每个脚本会自动退回本文件里的示例值并打印提示,方便你先跑通再逐项替换成自己的标的。",
+
+  "dashboards_dir": "./watchboard-data",
+
+  "python_cmd": "python",
+  "python_cmd_scrapling": "python",
+  "_python_cmd_note": "python_cmd 是你机器上默认可用的 python 命令(如 python / python3)。python_cmd_scrapling 是装了 scrapling 包的那个解释器命令——如果和 python_cmd 是同一个环境就填一样的值;如果 scrapling 单独装在另一个版本或虚拟环境(常见,例如 Windows 下 'py -3.14'),就把那个命令填这里。openrouter_tokens / cds_ice 两个脚本需要它,news_watch 纯标准库不需要但用同一个解释器跑也没问题。",
+
+  "scripts": {
+    "adr_premium":       { "enabled": true,  "interpreter": "python_cmd" },
+    "kofia_margin":       { "enabled": true,  "interpreter": "python_cmd" },
+    "openrouter_tokens":  { "enabled": true,  "interpreter": "python_cmd_scrapling" },
+    "gpu_rent":           { "enabled": true,  "interpreter": "python_cmd" },
+    "kr_rates":           { "enabled": true,  "interpreter": "python_cmd" },
+    "cds_ice":            { "enabled": true,  "interpreter": "python_cmd_scrapling" },
+    "news_watch":         { "enabled": true,  "interpreter": "python_cmd" },
+    "krx_flow":           { "enabled": true,  "interpreter": "python_cmd" }
+  },
+
+  "adr_pairs": [
+    {
+      "name": "SKHY_000660",
+      "adr_ticker": "SKHY",
+      "adr_naver_suffix": ".O",
+      "local_market": "krx",
+      "local_ticker": "000660",
+      "ratio": 10,
+      "fx_pair": "USDKRW"
+    }
+  ],
+
+  "cds_companies": {
+    "Microsoft": "microsoft",
+    "Alphabet": "alphabet",
+    "Amazon": "amazon",
+    "Meta": "meta platforms|facebook",
+    "Oracle": "oracle"
+  },
+
+  "gpu_cards": {
+    "A100": { "vast": ["A100 SXM4 80GB", "A100 PCIE", "A100 SXM4"], "runpod": ["A100 SXM", "A100 PCIe"] },
+    "H100": { "vast": ["H100 SXM", "H100 NVL", "H100 PCIE"], "runpod": ["H100 SXM", "H100 NVL", "H100 PCIe"] },
+    "H200": { "vast": ["H200", "H200 SXM", "H200 NVL"], "runpod": ["H200 SXM", "H200"] },
+    "B200": { "vast": ["B200"], "runpod": ["B200"] }
+  },
+
+  "news_watch": [
+    { "tag": "ko", "query": "HBM (엔비디아 OR NVIDIA) (인증 OR 퀄 OR 공급 OR 점유율 OR 납품)", "hl": "ko", "gl": "KR", "ceid": "KR:ko", "must_contain": ["hbm"] },
+    { "tag": "en", "query": "HBM NVIDIA (qualification OR certification OR \"market share\" OR supply)", "hl": "en-US", "gl": "US", "ceid": "US:en", "must_contain": ["hbm"] }
+  ],
+
+  "krx_flow_codes": ["000660", "005930"]
+}
