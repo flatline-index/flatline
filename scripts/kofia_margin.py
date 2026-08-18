@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-"""韩股杠杆监测:信用融资余额 + 强制平仓(반대매매) — watchboard 数据脚本
+﻿# -*- coding: utf-8 -*-
+"""韩股杠杆监测:信用融资余额 + 强制平仓(반대매매) — flatline 数据脚本
 
 数据源:KOFIA FreeSIS(韩国金融投资协会,免费公开,截至发布时实测无需注册/无需韩国 IP)
     POST https://freesis.kofia.or.kr/meta/getMetaDataList.do
@@ -34,7 +34,7 @@ import time
 import urllib.request
 from datetime import date, datetime, timedelta
 
-DEFAULT_CONFIG = {"dashboards_dir": "./watchboard-data"}
+DEFAULT_CONFIG = {"dashboards_dir": "./flatline-data"}
 
 FIELDS = ['date', 'margin_total_mkrw', 'margin_kospi_mkrw', 'margin_kosdaq_mkrw',
           'deposit_mkrw', 'misu_mkrw', 'forced_sale_mkrw', 'forced_ratio_pct']
@@ -51,7 +51,7 @@ OBJ_FUNDS = 'STATSCU0100000060BO'
 
 def load_config():
     candidates = []
-    env_path = os.environ.get('WATCHBOARD_CONFIG')
+    env_path = os.environ.get('FLATLINE_CONFIG')
     if env_path:
         candidates.append(env_path)
     candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
@@ -61,7 +61,7 @@ def load_config():
                 cfg = json.load(f)
             print(f'[config] 已加载 {path}')
             return cfg
-    print('[config] 未找到 config.json(同目录或 WATCHBOARD_CONFIG 环境变量均未命中),'
+    print('[config] 未找到 config.json(同目录或 FLATLINE_CONFIG 环境变量均未命中),'
           '使用内置示例默认值')
     return DEFAULT_CONFIG
 

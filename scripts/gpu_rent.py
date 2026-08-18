@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-"""GPU 租赁价快照 — watchboard 数据脚本
+﻿# -*- coding: utf-8 -*-
+"""GPU 租赁价快照 — flatline 数据脚本
 
 用途:算力需求侧的边缘温度计。公开租赁市场的 GPU 时租 = 算力稀缺性的市场实价。跟踪
 数据中心卡型谱系(如 A100/H100/H200/B200):某代卡租金坚挺=推理需求外溢,租金崩=
@@ -27,7 +27,7 @@ import urllib.request
 from datetime import date
 
 DEFAULT_CONFIG = {
-    "dashboards_dir": "./watchboard-data",
+    "dashboards_dir": "./flatline-data",
     "gpu_cards": {
         "A100": {"vast": ["A100 SXM4 80GB", "A100 PCIE", "A100 SXM4"], "runpod": ["A100 SXM", "A100 PCIe"]},
         "H100": {"vast": ["H100 SXM", "H100 NVL", "H100 PCIE"], "runpod": ["H100 SXM", "H100 NVL", "H100 PCIe"]},
@@ -43,7 +43,7 @@ UA = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'Content-Type':
 
 def load_config():
     candidates = []
-    env_path = os.environ.get('WATCHBOARD_CONFIG')
+    env_path = os.environ.get('FLATLINE_CONFIG')
     if env_path:
         candidates.append(env_path)
     candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
@@ -53,7 +53,7 @@ def load_config():
                 cfg = json.load(f)
             print(f'[config] 已加载 {path}')
             return cfg
-    print('[config] 未找到 config.json(同目录或 WATCHBOARD_CONFIG 环境变量均未命中),'
+    print('[config] 未找到 config.json(同目录或 FLATLINE_CONFIG 环境变量均未命中),'
           '使用内置示例默认值')
     return DEFAULT_CONFIG
 

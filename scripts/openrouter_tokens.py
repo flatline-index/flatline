@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-"""OpenRouter 全球 Token 用量 + 中/美模型份额 — watchboard 数据脚本
+﻿# -*- coding: utf-8 -*-
+"""OpenRouter 全球 Token 用量 + 中/美模型份额 — flatline 数据脚本
 
 用途:AI 算力需求的上游前瞻代理指标。OpenRouter 是第三方模型路由平台,口径是
 "该平台上的用量",不是全球推理总量,也不含 ChatGPT/Claude 等厂商自家应用的直连流量——
@@ -32,7 +32,7 @@ import time
 import urllib.request
 from datetime import datetime, timezone
 
-DEFAULT_CONFIG = {"dashboards_dir": "./watchboard-data"}
+DEFAULT_CONFIG = {"dashboards_dir": "./flatline-data"}
 
 FIELDS = ['date', 'total_tokens', 'cn_tokens', 'us_tokens', 'other_tokens',
           'cn_share_pct', 'us_share_pct']
@@ -55,7 +55,7 @@ KNOWN_OTHER = {'mistralai', 'cohere', 'ai21', 'stability', 'stabilityai', 'tngte
 
 def load_config():
     candidates = []
-    env_path = os.environ.get('WATCHBOARD_CONFIG')
+    env_path = os.environ.get('FLATLINE_CONFIG')
     if env_path:
         candidates.append(env_path)
     candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
@@ -65,7 +65,7 @@ def load_config():
                 cfg = json.load(f)
             print(f'[config] 已加载 {path}')
             return cfg
-    print('[config] 未找到 config.json(同目录或 WATCHBOARD_CONFIG 环境变量均未命中),'
+    print('[config] 未找到 config.json(同目录或 FLATLINE_CONFIG 环境变量均未命中),'
           '使用内置示例默认值')
     return DEFAULT_CONFIG
 

@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-"""ADR 相对本地上市股票的平价溢价监测 — watchboard 数据脚本
+﻿# -*- coding: utf-8 -*-
+"""ADR 相对本地上市股票的平价溢价监测 — flatline 数据脚本
 
 监测"同一家公司在两个市场的价格是否对得上":一份 ADR(美股存托凭证)理论上应该等于
 (本地股价 / 每份 ADR 对应股数 / 汇率)。两者之间的价差(溢价/折价)常被当作:
@@ -55,7 +55,7 @@ MIN_HIST = 20
 UA = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
 
 DEFAULT_CONFIG = {
-    "dashboards_dir": "./watchboard-data",
+    "dashboards_dir": "./flatline-data",
     "adr_pairs": [
         {"name": "SKHY_000660", "adr_ticker": "SKHY", "adr_naver_suffix": ".O",
          "local_market": "krx", "local_ticker": "000660", "ratio": 10, "fx_pair": "USDKRW"}
@@ -67,11 +67,11 @@ FIELDS = ['date', 'pair', 'adr_ticker', 'adr_price', 'adr_source', 'local_ticker
 
 
 def load_config():
-    """同目录 config.json 优先,其次环境变量 WATCHBOARD_CONFIG 指向的路径;都没有则用
+    """同目录 config.json 优先,其次环境变量 FLATLINE_CONFIG 指向的路径;都没有则用
     内置示例默认值(仅供跑通演示,正式使用请复制 config.example.json 改成 config.json
     并填自己的标的)。"""
     candidates = []
-    env_path = os.environ.get('WATCHBOARD_CONFIG')
+    env_path = os.environ.get('FLATLINE_CONFIG')
     if env_path:
         candidates.append(env_path)
     candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
@@ -81,7 +81,7 @@ def load_config():
                 cfg = json.load(f)
             print(f'[config] 已加载 {path}')
             return cfg
-    print('[config] 未找到 config.json(同目录或 WATCHBOARD_CONFIG 环境变量均未命中),'
+    print('[config] 未找到 config.json(同目录或 FLATLINE_CONFIG 环境变量均未命中),'
           '使用内置示例默认值')
     return DEFAULT_CONFIG
 

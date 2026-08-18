@@ -1,6 +1,8 @@
-# watchboard
+﻿# flatline
 
-**English TL;DR:** watchboard is an open-source "monitoring dashboard factory" for individual investors, packaged as a Claude Code / Cowork skill. You pre-register your own investment thesis as an observable, falsifiable condition (an invalidation line plus re-entry signals, evaluated on a closing-price basis only), and the AI assistant runs a set of free, zero-auth data pipelines on a schedule, checks your registered conditions against fresh data, and reports back as a five-layer scorecard: who pays (demand), is there enough cash (cash flow/profitability), where does the funding come from, who can cut it off (constraints/policy), and positioning/leverage. It ships eight ready-to-run data scripts (company-level CDS, Korean rates and margin financing, AI token usage share, GPU rental prices, ADR premium, keyword news monitoring), a free-data-source manual documenting every endpoint's quirks and failure modes, a discipline guide, a minimal backtesting method with a worked example, and a fabricated demo dashboard so you can see a filled-out board before building your own. This is a research tool, not investment advice: it does not recommend any security, any scraped data channel may break without notice, and a freshly built dashboard needs roughly 3-4 weeks of accumulated history before its historical percentiles mean anything. MIT licensed.
+**给个人投资者的监测仪表盘工场 · 先躺平地登记条件,再让 AI 每天诚实对答案**
+
+**English TL;DR:** flatline — a pre-registered investing scorecard for individual investors, open-source, packaged as a skill for any AI assistant that can execute tasks. You pre-register your own investment thesis as an observable, falsifiable condition (an invalidation line plus re-entry signals, evaluated on a closing-price basis only), and the AI assistant runs a set of free, zero-auth data pipelines on a schedule, checks your registered conditions against fresh data, and reports back as a five-layer scorecard: who pays (demand), is there enough cash (cash flow/profitability), where does the funding come from, who can cut it off (constraints/policy), and positioning/leverage. It ships eight ready-to-run data scripts (company-level CDS, Korean rates and margin financing, AI token usage share, GPU rental prices, ADR premium, keyword news monitoring), a free-data-source manual documenting every endpoint's quirks and failure modes, a discipline guide, a minimal backtesting method with a worked example, and a fabricated demo dashboard so you can see a filled-out board before building your own. This is a research tool, not investment advice: it does not recommend any security, any scraped data channel may break without notice, and a freshly built dashboard needs roughly 3-4 weeks of accumulated history before its historical percentiles mean anything. MIT licensed.
 
 ---
 
@@ -38,7 +40,7 @@ AI 每天负责跑数据、对照你登记的条件判定状态、按层结构�
 
 ## 八件套
 
-1. **主技能**(`SKILL.md`):装进 Claude Code / Cowork 的技能文件夹后,敲一个斜杠命令,
+1. **主技能**(`SKILL.md`):装进任何能执行任务的 AI 助手的技能目录后,一句话呼出,
    AI 自动跑完全部数据、对照你预先写下的信号逐条判定、按层播报给你、存档当日快照
 2. **五层记分卡模板**(`templates/dashboard_template.md`,行业无关):谁付钱/钱够不够/
    钱从哪来/谁能掐断/筹码与杠杆,任何行业换指标不换层
@@ -57,7 +59,7 @@ AI 每天负责跑数据、对照你登记的条件判定状态、按层结构�
 
 ## 五步用法
 
-1. **装**:把整个 `watchboard/` 目录复制进你自己的 Claude 技能文件夹(或者直接
+1. **装**:把整个 `flatline/` 目录复制进你的 AI 助手技能目录(或者直接
    `git clone` 到你习惯放技能的位置)
 2. **配**:复制 `config.example.json` 为 `config.json`,把里面的示例标的换成你自己
    关心的,CDS 监测哪几家公司、盯哪只 ADR、新闻监听什么关键词、GPU 盯哪几代卡、哪几只
@@ -73,7 +75,7 @@ AI 每天负责跑数据、对照你登记的条件判定状态、按层结构�
 
 ## 适合谁
 
-- **适合**:用 Claude Code / Cowork 的个人投资者。不需要会写代码,但需要愿意把自己的
+- **适合**:会用 AI 助手(任何能执行任务的均可)的个人投资者。不需要会写代码,但需要愿意把自己的
   投资逻辑说清楚、写下来
 - **不适合**:想要"买卖信号推送"的人。它不荐股,它把你自己的纪律外置成系统,如果你
   自己都说不清楚论点和证伪条件,这套工具帮不了你
@@ -93,7 +95,7 @@ AI 每天负责跑数据、对照你登记的条件判定状态、按层结构�
 ## 目录结构
 
 ```
-watchboard/
+flatline/
 ├── README.md                    本文件
 ├── LICENSE                      MIT
 ├── SKILL.md                     主技能编排(六步流程)
@@ -102,9 +104,14 @@ watchboard/
 ├── templates/
 │   └── dashboard_template.md    五层记分卡模板
 ├── docs/
-│   ├── data-sources.md          免费数据源手册
-│   ├── discipline.md            纪律军规
+│   ├── data-sources.md          免费数据源手册(含 2026-08 新通道与新坑增补)
+│   ├── discipline.md            纪律军规(判断纪律:防人性)
+│   ├── agent-discipline.md      执行军规(执行纪律:防 AI 漂移,22 条)
+│   ├── build-guide.md           建盘指南(从零立一个盘的六步教程)
+│   ├── case-storage.md          实例:存储链(同一哲学在海外与 A 股的两个真实实现)
+│   ├── checklist.md             验收清单(30 条自查)
 │   └── backtest-method.md       回测方法示范
+├── examples/                    真实样例(A 股存储链:基线快照/首期日报/信号预注册表)
 └── demo/
     └── dashboard_demo.md        演示盘(示意数据)
 ```

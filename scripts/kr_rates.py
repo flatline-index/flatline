@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-"""韩国流动性利率日更(筹码与杠杆层的流动性块) — watchboard 数据脚本
+﻿# -*- coding: utf-8 -*-
+"""韩国流动性利率日更(筹码与杠杆层的流动性块) — flatline 数据脚本
 
 背景:监测韩国市场流动性松紧,常规做法是看 KOFR-OIS/KORIBOR-OIS/CP-OIS 这类利差,但
 OIS 那条腿通常要付费数据终端才能拿到。这里改用自建代理利差(口径已注册,不能跟付费
@@ -29,7 +29,7 @@ import time
 import urllib.request
 from datetime import date, datetime, timedelta
 
-DEFAULT_CONFIG = {"dashboards_dir": "./watchboard-data"}
+DEFAULT_CONFIG = {"dashboards_dir": "./flatline-data"}
 
 FIELDS = ['date', 'kofr', 'base_rate', 'koribor_3m', 'cd_91', 'cp_91', 'ktb_10y',
           'sp_kofr_base_bp', 'sp_koribor_base_bp', 'sp_cp_cd_bp']
@@ -42,7 +42,7 @@ UA = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
 
 def load_config():
     candidates = []
-    env_path = os.environ.get('WATCHBOARD_CONFIG')
+    env_path = os.environ.get('FLATLINE_CONFIG')
     if env_path:
         candidates.append(env_path)
     candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
@@ -52,7 +52,7 @@ def load_config():
                 cfg = json.load(f)
             print(f'[config] 已加载 {path}')
             return cfg
-    print('[config] 未找到 config.json(同目录或 WATCHBOARD_CONFIG 环境变量均未命中),'
+    print('[config] 未找到 config.json(同目录或 FLATLINE_CONFIG 环境变量均未命中),'
           '使用内置示例默认值')
     return DEFAULT_CONFIG
 

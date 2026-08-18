@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-"""韩股投资者类型资金面(KRX官方口径,经Naver金融) — watchboard 数据脚本
+﻿# -*- coding: utf-8 -*-
+"""韩股投资者类型资金面(KRX官方口径,经Naver金融) — flatline 数据脚本
 
 用途:看机构/外资是不是在买你监测的韩股标的——筹码与杠杆层的资金面腿。
 输出:日期 | 收盘 | 涨跌% | 成交量 | 机构净买卖(股) | 外资净买卖(股) | 外资持股率
@@ -22,7 +22,7 @@ DEFAULT_CONFIG = {"krx_flow_codes": ["000660", "005930"]}
 
 def load_config():
     candidates = []
-    env_path = os.environ.get('WATCHBOARD_CONFIG')
+    env_path = os.environ.get('FLATLINE_CONFIG')
     if env_path:
         candidates.append(env_path)
     candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
@@ -32,7 +32,7 @@ def load_config():
                 cfg = json.load(f)
             print(f'[config] 已加载 {path}')
             return cfg
-    print('[config] 未找到 config.json(同目录或 WATCHBOARD_CONFIG 环境变量均未命中),'
+    print('[config] 未找到 config.json(同目录或 FLATLINE_CONFIG 环境变量均未命中),'
           '使用内置示例默认值')
     return DEFAULT_CONFIG
 

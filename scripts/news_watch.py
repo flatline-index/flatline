@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-"""关键词新闻监听(约束/事件层的事件锚) — watchboard 数据脚本
+﻿# -*- coding: utf-8 -*-
+"""关键词新闻监听(约束/事件层的事件锚) — flatline 数据脚本
 
 监控什么:你在 config.json 里配的任意关键词组合(默认示例监控 HBM 相关的英伟达认证/
 份额/供应新闻,换成你自己关心的题材——监管动向、认证进度、供应商份额变动都行)。
@@ -28,7 +28,7 @@ from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
 DEFAULT_CONFIG = {
-    "dashboards_dir": "./watchboard-data",
+    "dashboards_dir": "./flatline-data",
     "news_watch": [
         {"tag": "ko", "query": "HBM (엔비디아 OR NVIDIA) (인증 OR 퀄 OR 공급 OR 점유율 OR 납품)",
          "hl": "ko", "gl": "KR", "ceid": "KR:ko", "must_contain": ["hbm"]},
@@ -43,7 +43,7 @@ UA = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.3
 
 def load_config():
     candidates = []
-    env_path = os.environ.get('WATCHBOARD_CONFIG')
+    env_path = os.environ.get('FLATLINE_CONFIG')
     if env_path:
         candidates.append(env_path)
     candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
@@ -53,7 +53,7 @@ def load_config():
                 cfg = json.load(f)
             print(f'[config] 已加载 {path}')
             return cfg
-    print('[config] 未找到 config.json(同目录或 WATCHBOARD_CONFIG 环境变量均未命中),'
+    print('[config] 未找到 config.json(同目录或 FLATLINE_CONFIG 环境变量均未命中),'
           '使用内置示例默认值')
     return DEFAULT_CONFIG
 

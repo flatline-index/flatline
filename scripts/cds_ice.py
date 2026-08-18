@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-"""公司级 5 年期 CDS(ICE 清算所官方结算价) — watchboard 数据脚本
+﻿# -*- coding: utf-8 -*-
+"""公司级 5 年期 CDS(ICE 清算所官方结算价) — flatline 数据脚本
 
 用途:监测个股/组合背后的信用违约互换(CDS)利差走势,作为"钱从哪来(融资成本/
 信用状况)"这一层的资金面代理指标——利差走阔通常领先于债券利率上行或评级下调。
@@ -33,7 +33,7 @@ import sys
 from collections import Counter
 
 DEFAULT_CONFIG = {
-    "dashboards_dir": "./watchboard-data",
+    "dashboards_dir": "./flatline-data",
     "cds_companies": {
         "Microsoft": "microsoft",
         "Alphabet": "alphabet",
@@ -51,7 +51,7 @@ MIN_HIST = 20
 
 def load_config():
     candidates = []
-    env_path = os.environ.get('WATCHBOARD_CONFIG')
+    env_path = os.environ.get('FLATLINE_CONFIG')
     if env_path:
         candidates.append(env_path)
     candidates.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
@@ -61,7 +61,7 @@ def load_config():
                 cfg = json.load(f)
             print(f'[config] 已加载 {path}')
             return cfg
-    print('[config] 未找到 config.json(同目录或 WATCHBOARD_CONFIG 环境变量均未命中),'
+    print('[config] 未找到 config.json(同目录或 FLATLINE_CONFIG 环境变量均未命中),'
           '使用内置示例默认值')
     return DEFAULT_CONFIG
 
